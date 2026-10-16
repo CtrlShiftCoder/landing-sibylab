@@ -23,7 +23,7 @@ export const viewport: Viewport = { themeColor: "#150c1d", width: "device-width"
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es-CL" className={`${jakarta.variable} ${jetbrains.variable}`}>
+    <html lang="es-CL" className={`${jakarta.variable} ${jetbrains.variable}`} suppressHydrationWarning>
       <body className="font-sans">{children}</body>
     </html>
   );
