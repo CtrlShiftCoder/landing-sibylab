@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 
-/** Constelación neuronal: nodos que se conectan y reaccionan al mouse.
+/** Constelación neuronal en forma de 'S' (Sibylab): nodos que se conectan y reaccionan al mouse.
  *  Se pausa fuera de pantalla / pestaña oculta y respeta prefers-reduced-motion. */
 export function NeuralCanvas() {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -12,30 +12,86 @@ export function NeuralCanvas() {
     const dpr = Math.min(devicePixelRatio || 1, 2);
     let w = 0, h = 0, raf = 0, visible = true;
     const mouse = { x: -9999, y: -9999 };
-    type N = { x: number; y: number; vx: number; vy: number; r: number; hue: number };
+    type N = { x: number; y: number; tx: number; ty: number; vx: number; vy: number; r: number; hue: number };
     let nodes: N[] = [];
+    
+    const getSPath = (width: number, height: number): {x: number; y: number}[] => {
+      const points: {x: number; y: number}[] = [];
+      const steps = 120;
+      const padX = width * 0.15;
+      const padY = height * 0.12;
+      const availW = width - 2 * padX;
+      const availH = height - 2 * padY;
+      
+      for (let i = 0; i <= steps; i++) {
+        const t = i / steps;
+        const angle = t * Math.PI * 2;
+        let sx: number, sy: number;
+        
+        if (t < 0.5) {
+          sx = padX + availW * (0.7 - 0.4 * Math.cos(angle));
+          sy = padY + availH * (0.25 + 0.2 * Math.sin(angle));
+        } else {
+          sx = padX + availW * (0.3 + 0.4 * Math.cos(angle));
+          sy = padY + availH * (0.75 - 0.2 * Math.sin(angle));
+        }
+        points.push({ x: sx, y: sy });
+      }
+      return points;
+    };
+    
     const resize = () => {
       const r = c.getBoundingClientRect();
       w = r.width; h = r.height;
       c.width = w * dpr; c.height = h * dpr;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      const count = Math.round(Math.min(90, (w * h) / (w < 640 ? 14000 : 11000)));
-      nodes = Array.from({ length: count }, () => ({
-        x: Math.random() * w, y: Math.random() * h,
-        vx: (Math.random() - 0.5) * 0.35, vy: (Math.random() - 0.5) * 0.35,
-        r: Math.random() * 1.6 + 0.8, hue: Math.random(),
-      }));
+      
+      const isMobile = w < 640;
+      const count = isMobile ? 35 : 65;
+      const sPath = getSPath(w, h);
+      const step = Math.floor(sPath.length / count);
+      
+      nodes = Array.from({ length: count }, (_, i) => {
+        const pathIdx = (i * step) % sPath.length;
+        const target = sPath[pathIdx];
+        const drift = isMobile ? 8 : 12;
+        return {
+          x: target.x + (Math.random() - 0.5) * drift,
+          y: target.y + (Math.random() - 0.5) * drift,
+          tx: target.x,
+          ty: target.y,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          r: Math.random() * 1.4 + 0.9,
+          hue: Math.random(),
+        };
+      });
     };
-    const LINK = 130;
+    const LINK = w < 640 ? 100 : 140;
     const draw = (t: number) => {
       ctx.clearRect(0, 0, w, h);
       for (const n of nodes) {
         if (!reduce) {
-          n.x += n.vx; n.y += n.vy;
-          if (n.x < 0 || n.x > w) n.vx *= -1;
-          if (n.y < 0 || n.y > h) n.vy *= -1;
+          const dtx = n.tx - n.x, dty = n.ty - n.y;
+          const distToTarget = Math.hypot(dtx, dty);
+          
+          if (distToTarget > 1) {
+            n.x += dtx * 0.015;
+            n.y += dty * 0.015;
+          }
+          
+          n.x += n.vx * 0.6;
+          n.y += n.vy * 0.6;
+          
+          if (Math.abs(n.x - n.tx) > 25) n.vx *= 0.95;
+          if (Math.abs(n.y - n.ty) > 25) n.vy *= 0.95;
+          
           const dx = mouse.x - n.x, dy = mouse.y - n.y, d = Math.hypot(dx, dy);
-          if (d < 160) { n.x += dx * 0.012; n.y += dy * 0.012; }
+          if (d < 180) {
+            const force = (1 - d / 180) * 0.5;
+            n.x += dx * force * 0.025;
+            n.y += dy * force * 0.025;
+          }
         }
       }
       for (let i = 0; i < nodes.length; i++) {
