@@ -3,7 +3,7 @@ import { Icon } from "@/components/icons";
 import { ContactForm, WaitlistForm } from "@/components/forms";
 import { NeuralCanvas } from "@/components/neural-canvas";
 import { Effects } from "@/components/effects";
-import { SibylabEye } from "@/components/sibylab-eye";
+import { Eye3D } from "@/components/eye-3d";
 
 const nav = [
   { href: "#servicios", label: "Servicios" },
@@ -59,7 +59,7 @@ function Logo({ light }: { light?: boolean }) {
   return (
     <a href="#inicio" className="flex items-center gap-2.5" aria-label="Sibylab, ir al inicio">
       <div className="grid size-8 place-items-center rounded-xl bg-dark/90 ring-1 ring-white/10">
-        <SibylabEye size={28} enableCursorTracking />
+        <Eye3D size={28} enableTracking />
       </div>
       <span className={`text-lg font-extrabold tracking-tight ${light ? "text-fgd" : "text-ink"}`}>Sibylab</span>
     </a>
@@ -118,9 +118,8 @@ export default function Home() {
         <section id="inicio" className="relative overflow-hidden bg-dark pb-24 pt-32 text-fgd sm:pt-40 lg:pb-32">
           <div className="grid-bg pointer-events-none absolute inset-0" aria-hidden />
           <NeuralCanvas />
-          <div className="scanline" aria-hidden />
-          <div className="pointer-events-none absolute -right-40 -top-40 size-[38rem] rounded-full bg-p/40 blur-[120px]" aria-hidden />
-          <div className="pointer-events-none absolute -bottom-52 -left-40 size-[32rem] rounded-full bg-p3/40 blur-[120px]" aria-hidden />
+          <div className="pointer-events-none absolute -right-40 -top-40 size-[38rem] rounded-full bg-dark/60 blur-[120px]" aria-hidden />
+          <div className="pointer-events-none absolute -bottom-52 -left-40 size-[32rem] rounded-full bg-dark/60 blur-[120px]" aria-hidden />
           <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-5 sm:px-8 lg:grid-cols-[1.15fr_.85fr]">
             <div className="animate-fade-up">
               <p className="glass mb-7 inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-mono text-xs text-fgd/80">
@@ -142,12 +141,11 @@ export default function Home() {
 
             {/* Visual: "orbe" sibila */}
             <div className="relative mx-auto hidden aspect-square w-full max-w-md sm:block" aria-hidden>
-              <div className="absolute inset-0 animate-spin-slow rounded-full border border-dashed border-fgd/15" />
-              <div className="absolute inset-10 rounded-full border border-p2/40" />
-              <div className="pointer-events-none absolute inset-16 rounded-full bg-p3 blur-xl opacity-80" />
-              <div className="absolute inset-20 rounded-full bg-p3/90 shadow-[0_0_60px_rgba(92,31,109,0.8),inset_0_0_40px_rgba(155,66,171,0.3)]" />
-              <div className="ring-glow absolute inset-24 grid place-items-center rounded-full bg-gradient-radial from-p3/80 to-dark/95 shadow-[inset_0_2px_30px_rgba(155,66,171,0.4)] backdrop-blur-xl">
-                <SibylabEye size={160} enableCursorTracking />
+              <div className="absolute inset-0 animate-spin-slow rounded-full border border-dashed border-fgd/10" />
+              <div className="absolute inset-12 rounded-full border border-p2/20" />
+              <div className="absolute inset-20 rounded-full bg-black shadow-[0_0_80px_rgba(0,0,0,0.9),0_0_120px_rgba(92,31,109,0.3),inset_0_0_60px_rgba(0,0,0,0.8)]" />
+              <div className="absolute inset-24 grid place-items-center rounded-full bg-gradient-radial from-black/95 to-black">
+                <Eye3D size={200} enableTracking />
               </div>
               <div className="glass absolute left-0 top-16 animate-float rounded-2xl px-4 py-3 text-sm shadow-lg"><span className="font-mono text-tld">agente.run()</span><br /><span className="text-fgd/70">Documento procesado ✓</span></div>
               <div className="glass absolute bottom-12 right-0 animate-float rounded-2xl px-4 py-3 text-sm shadow-lg [animation-delay:-4s]"><span className="font-mono text-p2">flujo.auto</span><br /><span className="text-fgd/70">Tarea manual eliminada ✓</span></div>
