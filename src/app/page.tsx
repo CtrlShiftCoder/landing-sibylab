@@ -3,6 +3,7 @@ import { Icon } from "@/components/icons";
 import { ContactForm, WaitlistForm } from "@/components/forms";
 import { NeuralCanvas } from "@/components/neural-canvas";
 import { Effects } from "@/components/effects";
+import { SibylabEye } from "@/components/sibylab-eye";
 
 const nav = [
   { href: "#servicios", label: "Servicios" },
@@ -57,12 +58,9 @@ function Eyebrow({ children, dark }: { children: React.ReactNode; dark?: boolean
 function Logo({ light }: { light?: boolean }) {
   return (
     <a href="#inicio" className="flex items-center gap-2.5" aria-label="Sibylab, ir al inicio">
-      <svg viewBox="0 0 64 64" className="size-8" aria-hidden>
-        <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#9b42ab" /><stop offset="1" stopColor="#3fbfb2" /></linearGradient></defs>
-        <rect width="64" height="64" rx="14" fill="#150c1d" stroke="rgba(246,241,250,.15)" />
-        <path d="M14 32c5-9 11-13 18-13s13 4 18 13c-5 9-11 13-18 13s-13-4-18-13z" fill="none" stroke="url(#lg)" strokeWidth="4" />
-        <circle cx="32" cy="32" r="6" fill="url(#lg)" />
-      </svg>
+      <div className="grid size-8 place-items-center rounded-xl bg-dark/90 ring-1 ring-white/10">
+        <SibylabEye size={28} enableCursorTracking />
+      </div>
       <span className={`text-lg font-extrabold tracking-tight ${light ? "text-fgd" : "text-ink"}`}>Sibylab</span>
     </a>
   );
@@ -145,11 +143,11 @@ export default function Home() {
             {/* Visual: "orbe" sibila */}
             <div className="relative mx-auto hidden aspect-square w-full max-w-md sm:block" aria-hidden>
               <div className="absolute inset-0 animate-spin-slow rounded-full border border-dashed border-fgd/15" />
-              <div className="absolute inset-10 rounded-full border border-tld/40" />
-              <div className="pointer-events-none absolute inset-16 rounded-full bg-gradient-to-br from-tld/50 via-cyan-400/40 to-white/30 blur-2xl" />
-              <div className="absolute inset-20 rounded-full bg-gradient-to-br from-cyan-300/60 via-tld/50 to-p2/40 shadow-[0_0_80px_rgba(63,191,178,0.4),inset_0_0_60px_rgba(255,255,255,0.15)]" />
-              <div className="ring-glow absolute inset-24 grid place-items-center rounded-full bg-gradient-to-br from-white/25 via-cyan-50/20 to-tld/15 shadow-[inset_0_2px_40px_rgba(255,255,255,0.3),inset_0_-2px_40px_rgba(63,191,178,0.2)] backdrop-blur-xl">
-                <svg viewBox="0 0 64 64" className="eye-lid w-1/2 overflow-visible drop-shadow-[0_4px_12px_rgba(63,191,178,0.6)]"><defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff" /><stop offset=".5" stopColor="#3fbfb2" /><stop offset="1" stopColor="#0f6b6b" /></linearGradient></defs><path d="M8 32c6-11 14-16 24-16s18 5 24 16c-6 11-14 16-24 16S14 43 8 32z" fill="none" stroke="url(#hg)" strokeWidth="2.8" /><g data-eye className="eye-pupil"><circle cx="32" cy="32" r="9" fill="url(#hg)" /><circle cx="32" cy="32" r="3.5" fill="#0f0f1e" /><circle cx="34.5" cy="29.5" r="1.8" fill="#fff" opacity=".95" /></g></svg>
+              <div className="absolute inset-10 rounded-full border border-p2/40" />
+              <div className="pointer-events-none absolute inset-16 rounded-full bg-p3 blur-xl opacity-80" />
+              <div className="absolute inset-20 rounded-full bg-p3/90 shadow-[0_0_60px_rgba(92,31,109,0.8),inset_0_0_40px_rgba(155,66,171,0.3)]" />
+              <div className="ring-glow absolute inset-24 grid place-items-center rounded-full bg-gradient-radial from-p3/80 to-dark/95 shadow-[inset_0_2px_30px_rgba(155,66,171,0.4)] backdrop-blur-xl">
+                <SibylabEye size={160} enableCursorTracking />
               </div>
               <div className="glass absolute left-0 top-16 animate-float rounded-2xl px-4 py-3 text-sm shadow-lg"><span className="font-mono text-tld">agente.run()</span><br /><span className="text-fgd/70">Documento procesado ✓</span></div>
               <div className="glass absolute bottom-12 right-0 animate-float rounded-2xl px-4 py-3 text-sm shadow-lg [animation-delay:-4s]"><span className="font-mono text-p2">flujo.auto</span><br /><span className="text-fgd/70">Tarea manual eliminada ✓</span></div>

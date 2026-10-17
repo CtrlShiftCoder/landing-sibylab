@@ -38,6 +38,9 @@ body { background: var(--color-bg); color: var(--color-ink); -webkit-font-smooth
   background: linear-gradient(100deg, var(--color-p) 0%, var(--color-p2) 40%, var(--color-tl) 100%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-stops));
+}
 .grid-bg {
   background-image: linear-gradient(rgba(246,241,250,.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(246,241,250,.05) 1px, transparent 1px);
