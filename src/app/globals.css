@@ -98,7 +98,7 @@ body { background: var(--color-bg); color: var(--color-ink); -webkit-font-smooth
 
 
 .ring-glow::before { content: ""; position: absolute; inset: -2px; border-radius: inherit; z-index: -1;
-  background: conic-gradient(from var(--ang), #9b42ab, #3fbfb2, #c58ad6, #9b42ab); animation: border-spin 5s linear infinite; filter: blur(.5px); }
+  background: conic-gradient(from var(--ang), #9b42ab, #71388f, #c58ad6, #9b42ab); animation: border-spin 5s linear infinite; filter: blur(.5px); }
 
 /* Botón con glitch */
 .glitch { position: relative; }

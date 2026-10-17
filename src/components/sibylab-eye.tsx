@@ -91,18 +91,25 @@ export function SibylabEye({ className = "", size = 64, enableCursorTracking = f
       aria-hidden
     >
       <defs>
-        <linearGradient id="eye-gradient" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#9b42ab" />
-          <stop offset="50%" stopColor="#71388f" />
-          <stop offset="100%" stopColor="#5c1f6d" />
-        </linearGradient>
-        <radialGradient id="pupil-gradient" cx="0.4" cy="0.4">
-          <stop offset="0%" stopColor="#e6dfee" />
-          <stop offset="50%" stopColor="#c8b8d9" />
-          <stop offset="100%" stopColor="#9b42ab" />
+        <radialGradient id="eye-shape-gradient">
+          <stop offset="0%" stopColor="#6b3a7d" opacity="0.9" />
+          <stop offset="70%" stopColor="#5c1f6d" opacity="0.7" />
+          <stop offset="100%" stopColor="#5c1f6d" opacity="0" />
         </radialGradient>
-        <filter id="eye-glow">
-          <feGaussianBlur stdDeviation="1.5" result="blur" />
+        <radialGradient id="iris-gradient" cx="0.5" cy="0.5">
+          <stop offset="0%" stopColor="#4a1a5e" />
+          <stop offset="30%" stopColor="#5c1f6d" />
+          <stop offset="60%" stopColor="#71388f" />
+          <stop offset="85%" stopColor="#7d4399" />
+          <stop offset="100%" stopColor="#6b3a7d" />
+        </radialGradient>
+        <radialGradient id="pupil-gradient" cx="0.35" cy="0.35">
+          <stop offset="0%" stopColor="#ffffff" />
+          <stop offset="40%" stopColor="#f8f6fa" />
+          <stop offset="100%" stopColor="#e6dfee" />
+        </radialGradient>
+        <filter id="soft-glow">
+          <feGaussianBlur stdDeviation="2" result="blur" />
           <feComposite in="SourceGraphic" in2="blur" operator="over" />
         </filter>
       </defs>
@@ -111,11 +118,10 @@ export function SibylabEye({ className = "", size = 64, enableCursorTracking = f
         <ellipse
           cx="32"
           cy="32"
-          rx="28"
-          ry="18"
-          fill="url(#eye-gradient)"
-          filter="url(#eye-glow)"
-          opacity="0.95"
+          rx="30"
+          ry="19"
+          fill="url(#eye-shape-gradient)"
+          filter="url(#soft-glow)"
           style={{
             transform: isBlinking ? "scaleY(0.1)" : "scaleY(1)",
             transformOrigin: "center",
@@ -126,9 +132,9 @@ export function SibylabEye({ className = "", size = 64, enableCursorTracking = f
         <ellipse
           cx={32 + pupilPos.x}
           cy={32 + pupilPos.y}
-          rx="10"
-          ry="11"
-          fill="url(#pupil-gradient)"
+          rx="12"
+          ry="13"
+          fill="url(#iris-gradient)"
           style={{
             transform: isBlinking ? "scale(0.1)" : "scale(1)",
             transformOrigin: "center",
@@ -137,12 +143,25 @@ export function SibylabEye({ className = "", size = 64, enableCursorTracking = f
         />
         
         <ellipse
+          cx={32 + pupilPos.x}
+          cy={32 + pupilPos.y}
+          rx="5"
+          ry="5.5"
+          fill="url(#pupil-gradient)"
+          style={{
+            transform: isBlinking ? "scale(0)" : "scale(1)",
+            transformOrigin: "center",
+            transition: "transform 0.15s ease-out",
+          }}
+        />
+        
+        <ellipse
           cx={33 + pupilPos.x}
-          cy={30 + pupilPos.y}
-          rx="3"
-          ry="4"
+          cy={30.5 + pupilPos.y}
+          rx="2"
+          ry="2.5"
           fill="white"
-          opacity="0.9"
+          opacity="0.95"
           style={{
             transform: isBlinking ? "scale(0)" : "scale(1)",
             transformOrigin: "center",

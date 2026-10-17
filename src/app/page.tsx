@@ -120,7 +120,7 @@ export default function Home() {
           <NeuralCanvas />
           <div className="scanline" aria-hidden />
           <div className="pointer-events-none absolute -right-40 -top-40 size-[38rem] rounded-full bg-p/40 blur-[120px]" aria-hidden />
-          <div className="pointer-events-none absolute -bottom-52 -left-40 size-[32rem] rounded-full bg-tl/40 blur-[120px]" aria-hidden />
+          <div className="pointer-events-none absolute -bottom-52 -left-40 size-[32rem] rounded-full bg-p3/40 blur-[120px]" aria-hidden />
           <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-5 sm:px-8 lg:grid-cols-[1.15fr_.85fr]">
             <div className="animate-fade-up">
               <p className="glass mb-7 inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-mono text-xs text-fgd/80">
