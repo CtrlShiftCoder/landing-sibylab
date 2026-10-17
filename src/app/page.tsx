@@ -145,13 +145,14 @@ export default function Home() {
             {/* Visual: "orbe" sibila */}
             <div className="relative mx-auto hidden aspect-square w-full max-w-md sm:block" aria-hidden>
               <div className="absolute inset-0 animate-spin-slow rounded-full border border-dashed border-fgd/15" />
-              <div className="absolute inset-10 rounded-full border border-p2/30" />
-              <div className="absolute inset-20 rounded-full bg-gradient-to-br from-p2/60 via-p3/40 to-tl/60 blur-sm" />
-              <div className="ring-glow absolute inset-24 grid place-items-center rounded-full bg-dark/60 backdrop-blur">
-                <svg viewBox="0 0 64 64" className="eye-lid w-1/2 overflow-visible"><defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#c58ad6" /><stop offset="1" stopColor="#3fbfb2" /></linearGradient></defs><path d="M8 32c6-11 14-16 24-16s18 5 24 16c-6 11-14 16-24 16S14 43 8 32z" fill="none" stroke="url(#hg)" strokeWidth="2.5" /><g data-eye className="eye-pupil"><circle cx="32" cy="32" r="9" fill="url(#hg)" /><circle cx="32" cy="32" r="3.5" fill="#150c1d" /><circle cx="34.5" cy="29.5" r="1.6" fill="#fff" /></g></svg>
+              <div className="absolute inset-10 rounded-full border border-tld/40" />
+              <div className="pointer-events-none absolute inset-16 rounded-full bg-gradient-to-br from-tld/50 via-cyan-400/40 to-white/30 blur-2xl" />
+              <div className="absolute inset-20 rounded-full bg-gradient-to-br from-cyan-300/60 via-tld/50 to-p2/40 shadow-[0_0_80px_rgba(63,191,178,0.4),inset_0_0_60px_rgba(255,255,255,0.15)]" />
+              <div className="ring-glow absolute inset-24 grid place-items-center rounded-full bg-gradient-to-br from-white/25 via-cyan-50/20 to-tld/15 shadow-[inset_0_2px_40px_rgba(255,255,255,0.3),inset_0_-2px_40px_rgba(63,191,178,0.2)] backdrop-blur-xl">
+                <svg viewBox="0 0 64 64" className="eye-lid w-1/2 overflow-visible drop-shadow-[0_4px_12px_rgba(63,191,178,0.6)]"><defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#fff" /><stop offset=".5" stopColor="#3fbfb2" /><stop offset="1" stopColor="#0f6b6b" /></linearGradient></defs><path d="M8 32c6-11 14-16 24-16s18 5 24 16c-6 11-14 16-24 16S14 43 8 32z" fill="none" stroke="url(#hg)" strokeWidth="2.8" /><g data-eye className="eye-pupil"><circle cx="32" cy="32" r="9" fill="url(#hg)" /><circle cx="32" cy="32" r="3.5" fill="#0f0f1e" /><circle cx="34.5" cy="29.5" r="1.8" fill="#fff" opacity=".95" /></g></svg>
               </div>
-              <div className="glass absolute left-0 top-16 animate-float rounded-2xl px-4 py-3 text-sm"><span className="font-mono text-tld">agente.run()</span><br /><span className="text-fgd/70">Documento procesado ✓</span></div>
-              <div className="glass absolute bottom-12 right-0 animate-float rounded-2xl px-4 py-3 text-sm [animation-delay:-4s]"><span className="font-mono text-p2">flujo.auto</span><br /><span className="text-fgd/70">Tarea manual eliminada ✓</span></div>
+              <div className="glass absolute left-0 top-16 animate-float rounded-2xl px-4 py-3 text-sm shadow-lg"><span className="font-mono text-tld">agente.run()</span><br /><span className="text-fgd/70">Documento procesado ✓</span></div>
+              <div className="glass absolute bottom-12 right-0 animate-float rounded-2xl px-4 py-3 text-sm shadow-lg [animation-delay:-4s]"><span className="font-mono text-p2">flujo.auto</span><br /><span className="text-fgd/70">Tarea manual eliminada ✓</span></div>
             </div>
           </div>
         </section>
