@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" fill="none">
+  <defs>
+    <linearGradient id="sclera" x1="0%" y1="20%" x2="100%" y2="80%">
+      <stop offset="0%" stop-color="#d4b8f0"/>
+      <stop offset="22%" stop-color="#a878d4"/>
+      <stop offset="48%" stop-color="#7a3aad"/>
+      <stop offset="72%" stop-color="#5a2088"/>
+      <stop offset="100%" stop-color="#3a0f5c"/>
+    </linearGradient>
+    <linearGradient id="scleraSheen" x1="15%" y1="0%" x2="60%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.55)"/>
+      <stop offset="35%" stop-color="rgba(220,190,255,0.18)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+    <radialGradient id="iris" cx="42%" cy="38%" r="62%">
+      <stop offset="0%" stop-color="#c9a0e8"/>
+      <stop offset="35%" stop-color="#8b4fc4"/>
+      <stop offset="65%" stop-color="#5c1f6d"/>
+      <stop offset="100%" stop-color="#2a0a42"/>
+    </radialGradient>
+    <linearGradient id="irisEdge" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8d4ff"/>
+      <stop offset="40%" stop-color="#9b5ad4"/>
+      <stop offset="100%" stop-color="#4a1568"/>
+    </linearGradient>
+    <clipPath id="eyeClip">
+      <path d="M8 50 C 40 8, 120 8, 152 50 C 120 92, 40 92, 8 50 Z"/>
+    </clipPath>
+  </defs>
+  <path d="M8 50 C 40 8, 120 8, 152 50 C 120 92, 40 92, 8 50 Z" fill="url(#sclera)"/>
+  <path d="M8 50 C 40 8, 120 8, 152 50 C 120 92, 40 92, 8 50 Z" fill="url(#scleraSheen)"/>
+  <path d="M8 50 C 40 8, 120 8, 152 50 C 120 92, 40 92, 8 50 Z" fill="none" stroke="rgba(210,180,255,0.55)" stroke-width="1.2"/>
+  <g clip-path="url(#eyeClip)">
+    <circle cx="80" cy="50" r="28" fill="url(#iris)"/>
+    <circle cx="80" cy="50" r="28" fill="none" stroke="url(#irisEdge)" stroke-width="2.5"/>
+    <ellipse cx="72" cy="42" rx="18" ry="10" fill="rgba(255,255,255,0.22)" transform="rotate(-28 72 42)"/>
+    <circle cx="80" cy="50" r="11" fill="#000"/>
+    <ellipse cx="68" cy="38" rx="5" ry="3.5" fill="rgba(255,255,255,0.85)"/>
+    <ellipse cx="90" cy="58" rx="2.5" ry="1.8" fill="rgba(200,160,255,0.35)"/>
+  </g>
+</svg>

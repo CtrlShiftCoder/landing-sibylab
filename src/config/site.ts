@@ -3,8 +3,11 @@
 export const siteConfig = {
   name: "Sibylab",
   slogan: "We Build What’s Next.",
+  /** Meta description (~155 chars): beneficio + oferta + geo. */
   description:
-    "Sibylab es un laboratorio de tecnología e inteligencia artificial en Chile: desarrollo a medida, automatización con IA, productos SaaS y asesoría estratégica para ahorrar tiempo y eliminar el trabajo repetitivo.",
+    "Automatizamos procesos con IA y software a medida en Chile. Agentes inteligentes, integraciones y asesoría para que tu equipo recupere tiempo.",
+  /** Title corto para SERP (~50–60 chars). */
+  title: "Sibylab | IA y software a medida en Chile",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://sibylab.cl",
   // PLACEHOLDER: correo público de contacto
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contacto@sibylab.cl",

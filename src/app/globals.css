@@ -18,6 +18,7 @@
   --color-fgd: #f6f1fa;    /* texto sobre oscuro */
   --color-wa: #25d366;
   --font-sans: var(--font-jakarta), system-ui, sans-serif;
+  --font-brand: var(--font-space), var(--font-jakarta), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
   --animate-float: float 8s ease-in-out infinite;
   --animate-spin-slow: spin 40s linear infinite;
@@ -81,10 +82,25 @@ body { background: var(--color-bg); color: var(--color-ink); -webkit-font-smooth
   background: linear-gradient(to bottom, transparent, rgba(63,191,178,.08) 70%, rgba(63,191,178,.35) 100%);
   animation: scan 7s linear infinite; }
 
-/* Reveal con blur→nítido (solo si hay JS) */
-.js .reveal { opacity: 0; filter: blur(10px); transform: translateY(24px) scale(.98);
-  transition: opacity .8s cubic-bezier(.2,.7,.2,1), filter .8s, transform .8s cubic-bezier(.2,.7,.2,1); }
-.js .reveal.in { opacity: 1; filter: none; transform: none; }
+/* Reveal con blur→nítido (JS). Sin .in aún: visible de todos modos tras 1 frame de carga
+   para no “perder” cajas si el IntersectionObserver falla. */
+.js .reveal {
+  opacity: 1;
+  filter: none;
+  transform: none;
+  transition: opacity .8s cubic-bezier(.2,.7,.2,1), filter .8s, transform .8s cubic-bezier(.2,.7,.2,1);
+}
+.js .reveal[data-reveal-pending="1"] {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(24px) scale(.98);
+}
+.js .reveal.in,
+.js .reveal[data-reveal-pending="1"].in {
+  opacity: 1;
+  filter: none;
+  transform: none;
+}
 @supports (animation-timeline: view()) { .js .reveal { animation: none; } }
 
 /* Spotlight + borde degradado */
@@ -122,4 +138,104 @@ body { background: var(--color-bg); color: var(--color-ink); -webkit-font-smooth
 
 @media (prefers-reduced-motion: reduce) {
   .scanline, .flow-track::after { display: none; }
+}
+
+/* Select del formulario (evitar texto en blanco) */
+.select-dark {
+  color: #f6f1fa !important;
+  color-scheme: dark;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+.select-dark option {
+  color: #0f0f1e !important;
+  background: #ffffff !important;
+}
+
+/* Teléfono con prefijo de país (react-phone-number-input) */
+.PhoneInput {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.35rem 0.75rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  color: #f6f1fa;
+}
+.PhoneInput:focus-within {
+  border-color: var(--color-tld);
+  box-shadow: 0 0 0 2px rgba(63, 191, 178, 0.3);
+}
+.PhoneInput--invalid {
+  border-color: #fb7185;
+}
+.PhoneInputCountry {
+  position: relative;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  margin-right: 0.25rem;
+  padding-right: 0.35rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
+}
+.PhoneInputCountryIcon {
+  width: 1.5rem;
+  height: 1.1rem;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+  background: #fff;
+}
+.PhoneInputCountryIcon--border {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+.PhoneInputCountryIconImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.PhoneInputCountrySelect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+  color: #0f0f1e;
+  background: #fff;
+}
+.PhoneInputCountrySelect option,
+.PhoneInputCountrySelect optgroup {
+  color: #0f0f1e !important;
+  background: #ffffff !important;
+}
+.PhoneInputCountrySelectArrow {
+  display: block;
+  width: 0.35rem;
+  height: 0.35rem;
+  margin-left: 0.4rem;
+  border-right: 1.5px solid rgba(246, 241, 250, 0.7);
+  border-bottom: 1.5px solid rgba(246, 241, 250, 0.7);
+  transform: rotate(45deg);
+  opacity: 0.9;
+}
+.PhoneInputInput {
+  flex: 1;
+  min-width: 0;
+  border: 0 !important;
+  outline: none !important;
+  background: transparent !important;
+  color: #f6f1fa !important;
+  font: inherit;
+  padding: 0.55rem 0;
+  box-shadow: none !important;
+}
+.PhoneInputInput::placeholder {
+  color: rgba(246, 241, 250, 0.4);
 }

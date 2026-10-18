@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 100" fill="none">
+  <!-- Capas del ojo 3D (frontal)  referencia vectorial -->
+  <defs>
+    <radialGradient id="back" cx="55%" cy="55%" r="70%">
+      <stop offset="0%" stop-color="#5a2088"/>
+      <stop offset="55%" stop-color="#3a1058"/>
+      <stop offset="100%" stop-color="#1a0628"/>
+    </radialGradient>
+    <radialGradient id="iris" cx="40%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#c9a0e8"/>
+      <stop offset="30%" stop-color="#8b4fc4"/>
+      <stop offset="60%" stop-color="#5c1f6d"/>
+      <stop offset="100%" stop-color="#2a0a42"/>
+    </radialGradient>
+    <linearGradient id="irisStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e8d4ff"/>
+      <stop offset="50%" stop-color="#9b5ad4"/>
+      <stop offset="100%" stop-color="#4a1568"/>
+    </linearGradient>
+    <radialGradient id="lens" cx="32%" cy="28%" r="75%">
+      <stop offset="0%" stop-color="rgba(230,200,255,0.55)"/>
+      <stop offset="35%" stop-color="rgba(155,90,220,0.22)"/>
+      <stop offset="70%" stop-color="rgba(90,40,140,0.12)"/>
+      <stop offset="100%" stop-color="rgba(40,10,60,0.08)"/>
+    </radialGradient>
+    <linearGradient id="edge" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="rgba(220,190,255,0.85)"/>
+      <stop offset="45%" stop-color="rgba(140,80,210,0.35)"/>
+      <stop offset="100%" stop-color="rgba(180,140,240,0.65)"/>
+    </linearGradient>
+    <linearGradient id="body" x1="0%" y1="15%" x2="100%" y2="90%">
+      <stop offset="0%" stop-color="rgba(200,160,240,0.35)"/>
+      <stop offset="40%" stop-color="rgba(120,60,180,0.2)"/>
+      <stop offset="100%" stop-color="rgba(60,20,100,0.28)"/>
+    </linearGradient>
+    <mask id="irisMask">
+      <rect width="160" height="100" fill="white"/>
+      <circle cx="80" cy="50" r="12" fill="black"/>
+    </mask>
+  </defs>
+  <path d="M8 50 C 40 8, 120 8, 152 50 C 120 92, 40 92, 8 50 Z" fill="url(#back)"/>
+  <circle cx="80" cy="50" r="14" fill="#0a0412"/>
+  <circle cx="80" cy="50" r="30" fill="url(#iris)" mask="url(#irisMask)"/>
+  <circle cx="80" cy="50" r="30" fill="none" stroke="url(#irisStroke)" stroke-width="2.2"/>
+  <circle cx="80" cy="50" r="12" fill="none" stroke="rgba(180,130,230,0.5)" stroke-width="1.5"/>
+  <path d="M8 50 C 40 8, 120 8, 152 50 C 120 92, 40 92, 8 50 Z" fill="url(#body)"/>
+  <path d="M8 50 C 40 8, 120 8, 152 50 C 120 92, 40 92, 8 50 Z" fill="url(#lens)"/>
+  <path d="M8 50 C 40 8, 120 8, 152 50 C 120 92, 40 92, 8 50 Z" fill="none" stroke="url(#edge)" stroke-width="1.8"/>
+  <ellipse cx="58" cy="32" rx="22" ry="10" fill="rgba(255,255,255,0.35)"/>
+  <ellipse cx="52" cy="28" rx="8" ry="4" fill="rgba(255,255,255,0.75)"/>
+</svg>
