@@ -3,7 +3,8 @@
 import { headers } from "next/headers";
 import { contactSchema, waitlistSchema, type FormState } from "@/lib/schemas";
 import { contactServiceLabelsEs } from "@/lib/services";
-import { escapeHtml, sendEmail } from "@/lib/email";
+import { sendEmail } from "@/lib/email";
+import { contactLeadEmailHtml, waitlistEmailHtml } from "@/lib/email-templates";
 import { rateLimit } from "@/lib/rate-limit";
 
 const configError =
@@ -74,9 +75,15 @@ export async function submitContact(_prev: FormState, formData: FormData): Promi
     subject: `Lead web [${interesLabel}]: ${d.nombre} (${d.empresa})`,
     replyTo: d.correo,
     text: rows.map(([k, v]) => `${k}: ${v}`).join("\n"),
-    html: `<h2>Nuevo contacto desde Sibylab</h2><table cellpadding="6">${rows
-      .map(([k, v]) => `<tr><td><b>${k}</b></td><td style="white-space:pre-wrap">${escapeHtml(v)}</td></tr>`)
-      .join("")}</table>`,
+    html: contactLeadEmailHtml({
+      nombre: d.nombre,
+      empresa: d.empresa,
+      correo: d.correo,
+      telefono: d.telefono || "",
+      interesLabel,
+      mensaje: d.mensaje,
+      attribution: utmBits.length ? utmBits.join(" | ") : undefined,
+    }),
     tags: [{ name: "interest", value: d.interes.slice(0, 256) }],
   });
   if (!res.ok) {
@@ -116,7 +123,7 @@ export async function submitWaitlist(_prev: FormState, formData: FormData): Prom
     subject: `Lista de espera SaaS: ${parsed.data.correo}`,
     replyTo: parsed.data.correo,
     text: `Nuevo registro en lista de espera: ${parsed.data.correo}`,
-    html: `<p>Nuevo registro en lista de espera de productos SaaS: <b>${escapeHtml(parsed.data.correo)}</b></p>`,
+    html: waitlistEmailHtml(parsed.data.correo),
   });
   if (!res.ok) {
     return {
