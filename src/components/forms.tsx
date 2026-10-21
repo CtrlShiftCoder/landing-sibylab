@@ -9,7 +9,7 @@ import type { FormState } from "@/lib/schemas";
 import { contactServiceValues, type ContactServiceValue } from "@/lib/services";
 import { track } from "@/lib/analytics";
 import { LeadEvents } from "@/lib/lead-events";
-import { siteConfig, whatsappLink } from "@/config/site";
+import { siteConfig } from "@/config/site";
 import { useI18n } from "@/components/i18n-provider";
 
 const initial: FormState = { status: "idle" };
@@ -117,14 +117,9 @@ export function ContactForm() {
         <span className="grid size-14 place-items-center rounded-full bg-tld/20 text-2xl text-tld">✓</span>
         <p className="text-lg font-semibold text-fgd">{state.message}</p>
         <p className="text-sm text-fgd/60">{t.form.successNext}</p>
-        <div className="mt-2 flex flex-col gap-2 sm:flex-row">
-          <a href={siteConfig.scheduleUrl} target="_blank" rel="noopener noreferrer" className="rounded-full bg-fgd px-5 py-2.5 text-sm font-semibold text-dark transition hover:bg-tld">
-            {t.form.schedule}
-          </a>
-          <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-fgd">
-            WhatsApp
-          </a>
-        </div>
+        <a href={siteConfig.scheduleUrl} target="_blank" rel="noopener noreferrer" className="mt-2 rounded-full bg-fgd px-5 py-2.5 text-sm font-semibold text-dark transition hover:bg-tld">
+          {t.form.schedule}
+        </a>
       </div>
     );
   }

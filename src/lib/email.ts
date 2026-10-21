@@ -1,36 +1,67 @@
 import "server-only";
+import { createHash } from "node:crypto";
 import { Resend } from "resend";
+import { getEmailEnv } from "@/lib/env";
 
 export const escapeHtml = (s: string) =>
   s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
 
-type SendArgs = { subject: string; html: string; text: string; replyTo?: string };
+type SendArgs = {
+  subject: string;
+  html: string;
+  text: string;
+  replyTo?: string;
+  /** Prefijo para idempotencia (ej. contact / waitlist). */
+  kind: "contact" | "waitlist";
+  /** Material estable para evitar dobles envíos (mismo lead en 24h). */
+  idempotencySeed: string;
+  tags?: { name: string; value: string }[];
+};
 
-export async function sendEmail({ subject, html, text, replyTo }: SendArgs) {
-  const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_TO_EMAIL;
-  const from = process.env.CONTACT_FROM_EMAIL;
-  if (!apiKey || !to || !from) {
+let resend: Resend | null = null;
+
+function getClient(apiKey: string) {
+  if (!resend) resend = new Resend(apiKey);
+  return resend;
+}
+
+function idempotencyKey(kind: string, seed: string) {
+  const hash = createHash("sha256").update(seed).digest("hex").slice(0, 32);
+  return `${kind}/${hash}`.slice(0, 256);
+}
+
+export async function sendEmail({
+  subject,
+  html,
+  text,
+  replyTo,
+  kind,
+  idempotencySeed,
+  tags,
+}: SendArgs) {
+  const env = getEmailEnv();
+  if (!env.ok) {
     console.error("[email] Faltan RESEND_API_KEY, CONTACT_TO_EMAIL o CONTACT_FROM_EMAIL");
     return { ok: false as const, reason: "config" as const };
   }
-  try {
-    const resend = new Resend(apiKey);
-    const { error } = await resend.emails.send({
-      from,
-      to: to.split(",").map((s) => s.trim()),
+
+  const { data, error } = await getClient(env.apiKey).emails.send(
+    {
+      from: env.from,
+      to: env.to,
       subject,
       html,
       text,
       replyTo,
-    });
-    if (error) {
-      console.error("[email] Resend error", error);
-      return { ok: false as const, reason: "send" as const };
-    }
-    return { ok: true as const };
-  } catch (e) {
-    console.error("[email] Excepción", e);
+      tags: [{ name: "source", value: "landing" }, { name: "kind", value: kind }, ...(tags ?? [])],
+    },
+    { idempotencyKey: idempotencyKey(kind, idempotencySeed) },
+  );
+
+  if (error) {
+    console.error("[email] Resend error", error);
     return { ok: false as const, reason: "send" as const };
   }
+
+  return { ok: true as const, id: data?.id };
 }

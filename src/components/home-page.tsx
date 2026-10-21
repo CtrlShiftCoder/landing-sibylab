@@ -1,6 +1,6 @@
 "use client";
 
-import { siteConfig, whatsappLink } from "@/config/site";
+import { siteConfig } from "@/config/site";
 import { Icon } from "@/components/icons";
 import { ContactForm, WaitlistForm } from "@/components/forms";
 import { NeuralCanvas } from "@/components/neural-canvas";
@@ -216,26 +216,14 @@ export function HomePage() {
             </ul>
             <div className="mt-12 flex flex-col items-center gap-5 rounded-3xl border border-tl/20 bg-tl/5 p-6 text-center sm:p-8">
               <p className="text-lg text-ink2 sm:text-xl">{t.pain.ctaText}</p>
-              <div className="flex flex-col gap-3 sm:flex-row">
-                <TrackLink
-                  href="#contacto"
-                  event={LeadEvents.ctaClick}
-                  eventProps={{ location: "dolor" }}
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-p2 to-tl px-7 py-3.5 font-semibold text-white shadow-[0_10px_40px_rgba(155,66,171,.45)] transition hover:-translate-y-0.5 hover:brightness-110"
-                >
-                  {t.pain.cta} <Icon.arrow className="size-4" />
-                </TrackLink>
-                <TrackLink
-                  href={whatsappLink()}
-                  event={LeadEvents.whatsappClick}
-                  eventProps={{ location: "dolor" }}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-p/20 bg-white px-7 py-3.5 font-semibold text-ink transition hover:border-p hover:text-p"
-                >
-                  WhatsApp
-                </TrackLink>
-              </div>
+              <TrackLink
+                href="#contacto"
+                event={LeadEvents.ctaClick}
+                eventProps={{ location: "dolor" }}
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-p2 to-tl px-7 py-3.5 font-semibold text-white shadow-[0_10px_40px_rgba(155,66,171,.45)] transition hover:-translate-y-0.5 hover:brightness-110"
+              >
+                {t.pain.cta} <Icon.arrow className="size-4" />
+              </TrackLink>
             </div>
           </div>
         </section>
@@ -406,21 +394,9 @@ export function HomePage() {
               <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">{t.midCta.title}</h2>
               <p className="mt-3 text-fgd/70">{t.midCta.desc}</p>
             </div>
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <TrackLink href="#contacto" event={LeadEvents.ctaClick} eventProps={{ location: "mid_cta" }} className={btnPrimary}>
-                {t.midCta.cta} <Icon.arrow className="size-4" />
-              </TrackLink>
-              <TrackLink
-                href={whatsappLink()}
-                event={LeadEvents.whatsappClick}
-                eventProps={{ location: "mid_cta" }}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={btnGhost}
-              >
-                WhatsApp
-              </TrackLink>
-            </div>
+            <TrackLink href="#contacto" event={LeadEvents.ctaClick} eventProps={{ location: "mid_cta" }} className={btnPrimary}>
+              {t.midCta.cta} <Icon.arrow className="size-4" />
+            </TrackLink>
           </div>
         </section>
 
@@ -539,24 +515,6 @@ export function HomePage() {
                   </TrackLink>
                 </li>
                 <li>
-                  <TrackLink
-                    href={whatsappLink()}
-                    event={LeadEvents.whatsappClick}
-                    eventProps={{ location: "contacto" }}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="glass flex items-center gap-4 rounded-2xl p-4 transition hover:border-wa/50"
-                  >
-                    <span className="grid size-11 place-items-center rounded-xl bg-wa/20 text-wa">
-                      <Icon.whatsapp className="size-5" />
-                    </span>
-                    <span>
-                      <span className="block font-semibold">WhatsApp</span>
-                      <span className="text-sm text-fgd/60">{siteConfig.whatsappDisplay}</span>
-                    </span>
-                  </TrackLink>
-                </li>
-                <li>
                   <a href={`mailto:${siteConfig.email}`} className="glass flex items-center gap-4 rounded-2xl p-4 transition hover:border-tld/50">
                     <span className="grid size-11 place-items-center rounded-xl bg-tl/30 text-fgd">
                       <Icon.mail className="size-5" />
@@ -594,18 +552,6 @@ export function HomePage() {
           <p className="text-sm">{t.footer}</p>
         </div>
       </footer>
-
-      <TrackLink
-        href={whatsappLink()}
-        event={LeadEvents.whatsappClick}
-        eventProps={{ location: "fab" }}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={t.contact.whatsappAria}
-        className="fixed bottom-5 right-5 z-40 grid size-14 place-items-center rounded-full bg-wa text-white shadow-[0_10px_30px_rgba(37,211,102,.45)] transition hover:scale-105"
-      >
-        <Icon.whatsapp className="size-7" />
-      </TrackLink>
     </>
   );
 }

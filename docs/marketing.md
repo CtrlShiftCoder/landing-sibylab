@@ -45,14 +45,13 @@ Configurá `NEXT_PUBLIC_POSTHOG_KEY` en `.env.local`.
 | Evento | Cuándo |
 |---|---|
 | `cta_click` | Clic en CTAs |
-| `lead_whatsapp_click` | WhatsApp |
 | `lead_schedule_click` | Calendly / agenda |
 | `lead_contact_submit` | Formulario de contacto OK |
 | `lead_waitlist_submit` | Lista de espera SaaS |
 
 ## Checklist técnico de conversión
 
-- [ ] WhatsApp, Calendly, Resend y correo reales en `.env`
+- [ ] Calendly, Resend y correo reales en `.env`
 - [ ] Probar envío de un lead en producción
 - [ ] Google Search Console + Business Profile
 - [ ] LinkedIn de empresa y fundadores

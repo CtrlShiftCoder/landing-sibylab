@@ -3,6 +3,5 @@ export const LeadEvents = {
   ctaClick: "cta_click",
   contactSubmit: "lead_contact_submit",
   waitlistSubmit: "lead_waitlist_submit",
-  whatsappClick: "lead_whatsapp_click",
   scheduleClick: "lead_schedule_click",
 } as const;
