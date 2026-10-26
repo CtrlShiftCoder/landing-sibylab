@@ -11,6 +11,10 @@ import { TrackLink } from "@/components/track-link";
 import { LangSwitch } from "@/components/lang-switch";
 import { useI18n } from "@/components/i18n-provider";
 import { LeadEvents } from "@/lib/lead-events";
+import { GSAPHeroAnimation } from "@/components/gsap-hero-animation";
+import { GSAPScrollAnimations } from "@/components/gsap-scroll-animations";
+import { GSAPSmoothScroll } from "@/components/gsap-smooth-scroll";
+import { GSAPHoverEffects } from "@/components/gsap-hover-effects";
 
 function Eyebrow({ children, dark }: { children: React.ReactNode; dark?: boolean }) {
   return (
@@ -54,6 +58,7 @@ export function HomePage() {
   return (
     <>
       <Effects />
+      <GSAPSmoothScroll />
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2">
         {t.skip}
       </a>
@@ -114,86 +119,90 @@ export function HomePage() {
       </header>
 
       <main id="main">
-        {/* Morado */}
-        <section id="inicio" className="relative overflow-hidden bg-dark pb-24 pt-32 text-fgd sm:pt-40 lg:pb-32">
+        <GSAPScrollAnimations>
+          <GSAPHoverEffects>
+            {/* Morado */}
+            <section id="inicio" className="relative overflow-hidden bg-dark pb-24 pt-32 text-fgd sm:pt-40 lg:pb-32">
           <div className="grid-bg pointer-events-none absolute inset-0" aria-hidden />
           <NeuralCanvas />
           <div className="pointer-events-none absolute -right-40 -top-40 size-[38rem] rounded-full bg-dark/60 blur-[120px]" aria-hidden />
           <div className="pointer-events-none absolute -bottom-52 -left-40 size-[32rem] rounded-full bg-dark/60 blur-[120px]" aria-hidden />
           <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-5 sm:px-8 lg:grid-cols-[1.15fr_.85fr]">
-            <div className="animate-fade-up">
-              <p className="glass mb-7 inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-mono text-xs text-fgd/80">
-                <span className="relative flex size-2">
-                  <span className="absolute inline-flex size-full animate-ping rounded-full bg-tld opacity-75" />
-                  <span className="relative inline-flex size-2 rounded-full bg-tld" />
-                </span>
-                {t.hero.badge}
-              </p>
-              <h1 className="text-[2.6rem] font-extrabold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
-                {t.hero.h1a} <span className="text-gradient" data-scramble={t.hero.h1b}>{t.hero.h1b}</span>
-                <br />
-                {t.hero.h1c} <span className="text-gradient">{t.hero.h1d}</span>
-              </h1>
-              <p className="mt-7 max-w-xl text-lg leading-relaxed text-fgd/70">{t.hero.sub}</p>
-              <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-                <TrackLink
-                  href="#contacto"
-                  event={LeadEvents.ctaClick}
-                  eventProps={{ location: "hero" }}
-                  className={`${btnPrimary} glitch`}
-                  data-text={t.hero.cta}
-                >
-                  {t.hero.cta} <Icon.arrow className="size-4" />
-                </TrackLink>
-                <a href="#servicios" className={btnGhost}>
-                  {t.hero.secondary}
-                </a>
+            <GSAPHeroAnimation>
+              <div>
+                <p className="hero-badge glass mb-7 inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-mono text-xs text-fgd/80">
+                  <span className="relative flex size-2">
+                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-tld opacity-75" />
+                    <span className="relative inline-flex size-2 rounded-full bg-tld" />
+                  </span>
+                  {t.hero.badge}
+                </p>
+                <h1 className="hero-h1 text-[2.6rem] font-extrabold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
+                  {t.hero.h1a} <span className="text-gradient" data-scramble={t.hero.h1b}>{t.hero.h1b}</span>
+                  <br />
+                  {t.hero.h1c} <span className="text-gradient">{t.hero.h1d}</span>
+                </h1>
+                <p className="hero-subtitle mt-7 max-w-xl text-lg leading-relaxed text-fgd/70">{t.hero.sub}</p>
+                <div className="hero-ctas mt-10 flex flex-col gap-3 sm:flex-row">
+                  <TrackLink
+                    href="#contacto"
+                    event={LeadEvents.ctaClick}
+                    eventProps={{ location: "hero" }}
+                    className={`${btnPrimary} glitch`}
+                    data-text={t.hero.cta}
+                  >
+                    {t.hero.cta} <Icon.arrow className="size-4" />
+                  </TrackLink>
+                  <a href="#servicios" className={btnGhost}>
+                    {t.hero.secondary}
+                  </a>
+                </div>
+                <ul className="hero-trust mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm text-fgd/55">
+                  <li className="flex items-center gap-2">
+                    <Icon.check className="size-4 text-tld" />
+                    {t.hero.trust1}
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Icon.check className="size-4 text-tld" />
+                    {t.hero.trust2}
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <Icon.check className="size-4 text-tld" />
+                    {t.hero.trust3}
+                  </li>
+                </ul>
+                <p className="hero-slogan mt-6 font-mono text-sm tracking-wide text-tld">
+                  {"// "}
+                  <span data-scramble={siteConfig.slogan}>{siteConfig.slogan}</span>
+                  <span className="ml-0.5 inline-block w-2 animate-pulse">▍</span>
+                </p>
               </div>
-              <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm text-fgd/55">
-                <li className="flex items-center gap-2">
-                  <Icon.check className="size-4 text-tld" />
-                  {t.hero.trust1}
-                </li>
-                <li className="flex items-center gap-2">
-                  <Icon.check className="size-4 text-tld" />
-                  {t.hero.trust2}
-                </li>
-                <li className="flex items-center gap-2">
-                  <Icon.check className="size-4 text-tld" />
-                  {t.hero.trust3}
-                </li>
-              </ul>
-              <p className="mt-6 font-mono text-sm tracking-wide text-tld">
-                {"// "}
-                <span data-scramble={siteConfig.slogan}>{siteConfig.slogan}</span>
-                <span className="ml-0.5 inline-block w-2 animate-pulse">▍</span>
-              </p>
-            </div>
 
-            <div className="relative mx-auto hidden aspect-square w-full max-w-md sm:block" aria-hidden>
-              <div className="absolute inset-0 animate-spin-slow rounded-full border border-dashed border-fgd/10" />
-              <div className="absolute inset-12 rounded-full border border-p2/20" />
-              <div className="absolute inset-20 rounded-full bg-black shadow-[0_0_80px_rgba(0,0,0,0.9),0_0_120px_rgba(92,31,109,0.3),inset_0_0_60px_rgba(0,0,0,0.8)]" />
-              <div className="absolute inset-24 grid place-items-center rounded-full bg-gradient-radial from-black/95 to-black">
-                <Eye3D size={200} enableTracking />
+              <div className="hero-visual relative mx-auto hidden aspect-square w-full max-w-md sm:block" aria-hidden>
+                <div className="absolute inset-0 animate-spin-slow rounded-full border border-dashed border-fgd/10" />
+                <div className="absolute inset-12 rounded-full border border-p2/20" />
+                <div className="absolute inset-20 rounded-full bg-black shadow-[0_0_80px_rgba(0,0,0,0.9),0_0_120px_rgba(92,31,109,0.3),inset_0_0_60px_rgba(0,0,0,0.8)]" />
+                <div className="absolute inset-24 grid place-items-center rounded-full bg-gradient-radial from-black/95 to-black">
+                  <Eye3D size={200} enableTracking />
+                </div>
+                <div className="hero-card glass absolute left-0 top-16 animate-float rounded-2xl px-4 py-3 text-sm shadow-lg">
+                  <span className="font-mono text-tld">agente.run()</span>
+                  <br />
+                  <span className="text-fgd/70">{t.hero.card1}</span>
+                </div>
+                <div className="hero-card glass absolute bottom-12 right-0 animate-float rounded-2xl px-4 py-3 text-sm shadow-lg [animation-delay:-4s]">
+                  <span className="font-mono text-p2">flujo.auto</span>
+                  <br />
+                  <span className="text-fgd/70">{t.hero.card2}</span>
+                </div>
               </div>
-              <div className="glass absolute left-0 top-16 animate-float rounded-2xl px-4 py-3 text-sm shadow-lg">
-                <span className="font-mono text-tld">agente.run()</span>
-                <br />
-                <span className="text-fgd/70">{t.hero.card1}</span>
-              </div>
-              <div className="glass absolute bottom-12 right-0 animate-float rounded-2xl px-4 py-3 text-sm shadow-lg [animation-delay:-4s]">
-                <span className="font-mono text-p2">flujo.auto</span>
-                <br />
-                <span className="text-fgd/70">{t.hero.card2}</span>
-              </div>
-            </div>
+            </GSAPHeroAnimation>
           </div>
         </section>
 
-        {/* Blanco */}
-        <section aria-labelledby="dolor-title" className="relative bg-bg py-24 sm:py-28">
-          <div className="mx-auto max-w-7xl px-5 sm:px-8">
+            {/* Blanco */}
+            <section aria-labelledby="dolor-title" className="relative bg-bg py-24 sm:py-28">
+              <div className="mx-auto max-w-7xl px-5 sm:px-8">
             <div className="max-w-2xl">
               <Eyebrow>{t.pain.eyebrow}</Eyebrow>
               <h2 id="dolor-title" className="text-3xl font-extrabold tracking-tight sm:text-5xl">
@@ -510,6 +519,8 @@ export function HomePage() {
             <ContactForm />
           </div>
         </section>
+          </GSAPHoverEffects>
+        </GSAPScrollAnimations>
       </main>
 
       <footer className="border-t border-white/5 bg-dark py-12 text-fgd/60">
