@@ -117,9 +117,6 @@ export function ContactForm() {
         <span className="grid size-14 place-items-center rounded-full bg-tld/20 text-2xl text-tld">✓</span>
         <p className="text-lg font-semibold text-fgd">{state.message}</p>
         <p className="text-sm text-fgd/60">{t.form.successNext}</p>
-        <a href={siteConfig.scheduleUrl} target="_blank" rel="noopener noreferrer" className="mt-2 rounded-full bg-fgd px-5 py-2.5 text-sm font-semibold text-dark transition hover:bg-tld">
-          {t.form.schedule}
-        </a>
       </div>
     );
   }

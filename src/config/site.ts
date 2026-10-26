@@ -11,8 +11,6 @@ export const siteConfig = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://sibylab.com",
   // PLACEHOLDER: correo público de contacto
   email: process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "contacto@sibylab.com",
-  // PLACEHOLDER: link de agenda (Calendly, Google Calendar, etc.)
-  scheduleUrl: process.env.NEXT_PUBLIC_SCHEDULE_URL ?? "https://calendly.com/sibylab/reunion",
   linkedin: process.env.NEXT_PUBLIC_LINKEDIN_URL ?? "",
   instagram: process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "",
 } as const;

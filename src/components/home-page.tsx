@@ -495,37 +495,17 @@ export function HomePage() {
               <p className="mt-6 text-lg text-fgd/70">
                 {t.contact.desc} <strong className="text-fgd">{t.contact.descStrong}</strong>.
               </p>
-              <ul className="mt-10 space-y-3">
-                <li>
-                  <TrackLink
-                    href={siteConfig.scheduleUrl}
-                    event={LeadEvents.scheduleClick}
-                    eventProps={{ location: "contacto" }}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="glass flex items-center gap-4 rounded-2xl p-4 transition hover:border-tld/50"
-                  >
-                    <span className="grid size-11 place-items-center rounded-xl bg-p/30 text-fgd">
-                      <Icon.calendar className="size-5" />
-                    </span>
-                    <span>
-                      <span className="block font-semibold">{t.contact.schedule}</span>
-                      <span className="text-sm text-fgd/60">{t.contact.scheduleHint}</span>
-                    </span>
-                  </TrackLink>
-                </li>
-                <li>
-                  <a href={`mailto:${siteConfig.email}`} className="glass flex items-center gap-4 rounded-2xl p-4 transition hover:border-tld/50">
-                    <span className="grid size-11 place-items-center rounded-xl bg-tl/30 text-fgd">
-                      <Icon.mail className="size-5" />
-                    </span>
-                    <span>
-                      <span className="block font-semibold">{t.contact.email}</span>
-                      <span className="text-sm text-fgd/60">{siteConfig.email}</span>
-                    </span>
-                  </a>
-                </li>
-              </ul>
+              <div className="mt-10">
+                <a href={`mailto:${siteConfig.email}`} className="glass flex items-center gap-4 rounded-2xl p-4 transition hover:border-tld/50">
+                  <span className="grid size-11 place-items-center rounded-xl bg-tl/30 text-fgd">
+                    <Icon.mail className="size-5" />
+                  </span>
+                  <span>
+                    <span className="block font-semibold">{t.contact.email}</span>
+                    <span className="text-sm text-fgd/60">{siteConfig.email}</span>
+                  </span>
+                </a>
+              </div>
             </div>
             <ContactForm />
           </div>
