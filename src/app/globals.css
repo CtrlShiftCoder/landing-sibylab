@@ -51,7 +51,7 @@ body { background: var(--color-bg); color: var(--color-ink); -webkit-font-smooth
 .glass { background: rgba(255,255,255,.04); border: 1px solid rgba(246,241,250,.1); backdrop-filter: blur(12px); }
 .card-light { background: #fff; border: 1px solid rgba(113,56,143,.14); box-shadow: 0 18px 48px rgba(123,45,139,.08); }
 
-/* Reveal al hacer scroll: solo CSS (scroll-driven animations); degrada a visible */
+/* Reveal al hacer scroll: CSS fallback si GSAP no carga; GSAP toma el control con .gsap-ready */
 @supports (animation-timeline: view()) {
   .reveal { animation: fade-up linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
 }
@@ -78,30 +78,47 @@ body { background: var(--color-bg); color: var(--color-ink); -webkit-font-smooth
 @property --ang { syntax: "<angle>"; initial-value: 0deg; inherits: false; }
 
 .grid-bg { animation: grid-pan 6s linear infinite; }
+.gsap-ready .grid-bg { animation: none; }
 .scanline { position: absolute; inset-inline: 0; top: 0; height: 120px; pointer-events: none;
   background: linear-gradient(to bottom, transparent, rgba(63,191,178,.08) 70%, rgba(63,191,178,.35) 100%);
   animation: scan 7s linear infinite; }
 
-/* Reveal con blur→nítido (JS). Sin .in aún: visible de todos modos tras 1 frame de carga
-   para no “perder” cajas si el IntersectionObserver falla. */
-.js .reveal {
+/* GSAP owns reveals — disable CSS scroll/IO reveal paths to avoid fighting transforms */
+.gsap-ready .reveal {
+  animation: none !important;
+  transition: none;
+  will-change: transform, opacity, filter;
+}
+.gsap-ready .gsap-hero-visual,
+.gsap-ready .gsap-hero-float,
+.gsap-ready .gsap-step,
+.gsap-ready .gsap-head,
+.gsap-ready .gsap-mid-cta {
+  will-change: transform, opacity;
+}
+@supports (animation-timeline: view()) {
+  .gsap-ready .reveal { animation: none !important; }
+}
+
+/* Legacy JS reveal (solo si GSAP no marcó la página) */
+.js:not(.gsap-ready) .reveal {
   opacity: 1;
   filter: none;
   transform: none;
   transition: opacity .8s cubic-bezier(.2,.7,.2,1), filter .8s, transform .8s cubic-bezier(.2,.7,.2,1);
 }
-.js .reveal[data-reveal-pending="1"] {
+.js:not(.gsap-ready) .reveal[data-reveal-pending="1"] {
   opacity: 0;
   filter: blur(10px);
   transform: translateY(24px) scale(.98);
 }
-.js .reveal.in,
-.js .reveal[data-reveal-pending="1"].in {
+.js:not(.gsap-ready) .reveal.in,
+.js:not(.gsap-ready) .reveal[data-reveal-pending="1"].in {
   opacity: 1;
   filter: none;
   transform: none;
 }
-@supports (animation-timeline: view()) { .js .reveal { animation: none; } }
+@supports (animation-timeline: view()) { .js:not(.gsap-ready) .reveal { animation: none; } }
 
 /* Spotlight + borde degradado */
 .spot { position: relative; isolation: isolate; }
