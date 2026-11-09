@@ -9,23 +9,7 @@ function isInView(el: HTMLElement) {
   return r.top < window.innerHeight * 0.95 && r.bottom > -40;
 }
 
-function revealAllVisible(reveals: NodeListOf<HTMLElement>, io: IntersectionObserver, reduce: boolean) {
-  reveals.forEach((el) => {
-    if (el.classList.contains("in")) {
-      el.removeAttribute("data-reveal-pending");
-      return;
-    }
-    if (reduce || isInView(el)) {
-      el.classList.add("in");
-      el.removeAttribute("data-reveal-pending");
-    } else {
-      el.setAttribute("data-reveal-pending", "1");
-      io.observe(el);
-    }
-  });
-}
-
-/** Efectos globales: reveal, spotlight, contador, scramble. Se re-enlazan al cambiar idioma. */
+/** Efectos globales: spotlight, scramble, eye tracking. Reveals/contadores viven en GSAP. */
 export function Effects() {
   const { locale } = useI18n();
 
@@ -35,86 +19,6 @@ export function Effects() {
     root.classList.add("js");
     const cleanups: (() => void)[] = [];
     const rafs: number[] = [];
-
-    const reveals = document.querySelectorAll<HTMLElement>(".reveal");
-    reveals.forEach((el) => {
-      const sibs = el.parentElement
-        ? Array.from(el.parentElement.children).filter((c) => c.classList.contains("reveal"))
-        : [];
-      el.style.transitionDelay = `${Math.min(sibs.indexOf(el), 6) * 90}ms`;
-    });
-
-    const io = new IntersectionObserver(
-      (es) =>
-        es.forEach((e) => {
-          if (!e.isIntersecting) return;
-          const el = e.target as HTMLElement;
-          el.classList.add("in");
-          el.removeAttribute("data-reveal-pending");
-          io.unobserve(el);
-        }),
-      { rootMargin: "80px 0px 80px 0px", threshold: 0 },
-    );
-
-    revealAllVisible(reveals, io, reduce);
-    // Re-check after layout/fonts (evita cajas invisibles en secciones largas)
-    const t1 = window.setTimeout(() => revealAllVisible(document.querySelectorAll<HTMLElement>(".reveal"), io, reduce), 150);
-    const t2 = window.setTimeout(() => {
-      document.querySelectorAll<HTMLElement>('.reveal[data-reveal-pending="1"]').forEach((el) => {
-        if (isInView(el)) {
-          el.classList.add("in");
-          el.removeAttribute("data-reveal-pending");
-        }
-      });
-    }, 600);
-    // Safety: nunca dejar contenido oculto más de 2.5s
-    const t3 = window.setTimeout(() => {
-      document.querySelectorAll<HTMLElement>(".reveal").forEach((el) => {
-        el.classList.add("in");
-        el.removeAttribute("data-reveal-pending");
-      });
-    }, 2500);
-
-    cleanups.push(() => {
-      io.disconnect();
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-    });
-
-    // Contadores
-    const cio = new IntersectionObserver(
-      (es) =>
-        es.forEach((e) => {
-          if (!e.isIntersecting) return;
-          const el = e.target as HTMLElement;
-          cio.unobserve(el);
-          const to = Number(el.dataset.count);
-          const pre = el.dataset.prefix ?? "";
-          if (reduce || Number.isNaN(to)) {
-            el.textContent = pre + (Number.isNaN(to) ? "" : to);
-            return;
-          }
-          const t0 = performance.now();
-          const step = (t: number) => {
-            const p = Math.min(1, (t - t0) / 1600);
-            el.textContent = pre + Math.round(to * (1 - Math.pow(1 - p, 3)));
-            if (p < 1) rafs.push(requestAnimationFrame(step));
-          };
-          rafs.push(requestAnimationFrame(step));
-        }),
-      { threshold: 0.4 },
-    );
-    document.querySelectorAll<HTMLElement>("[data-count]").forEach((el) => {
-      if (isInView(el)) {
-        const to = Number(el.dataset.count);
-        const pre = el.dataset.prefix ?? "";
-        el.textContent = pre + (Number.isNaN(to) ? "" : to);
-      } else {
-        cio.observe(el);
-      }
-    });
-    cleanups.push(() => cio.disconnect());
 
     // Scramble
     const scramble = (el: HTMLElement) => {

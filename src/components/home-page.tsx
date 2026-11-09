@@ -5,6 +5,7 @@ import { Icon } from "@/components/icons";
 import { ContactForm, WaitlistForm } from "@/components/forms";
 import { NeuralCanvas } from "@/components/neural-canvas";
 import { Effects } from "@/components/effects";
+import { GsapMotion } from "@/components/gsap-motion";
 import { Eye3D } from "@/components/eye-3d";
 import { SibylabLogo } from "@/components/sibylab-logo";
 import { TrackLink } from "@/components/track-link";
@@ -52,7 +53,7 @@ export function HomePage() {
   ];
 
   return (
-    <>
+    <GsapMotion>
       <Effects />
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2">
         {t.skip}
@@ -121,8 +122,8 @@ export function HomePage() {
           <div className="pointer-events-none absolute -right-40 -top-40 size-[38rem] rounded-full bg-dark/60 blur-[120px]" aria-hidden />
           <div className="pointer-events-none absolute -bottom-52 -left-40 size-[32rem] rounded-full bg-dark/60 blur-[120px]" aria-hidden />
           <div className="relative mx-auto grid max-w-7xl items-center gap-16 px-5 sm:px-8 lg:grid-cols-[1.15fr_.85fr]">
-            <div className="animate-fade-up">
-              <p className="glass mb-7 inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-mono text-xs text-fgd/80">
+            <div>
+              <p className="gsap-hero-badge glass mb-7 inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-mono text-xs text-fgd/80">
                 <span className="relative flex size-2">
                   <span className="absolute inline-flex size-full animate-ping rounded-full bg-tld opacity-75" />
                   <span className="relative inline-flex size-2 rounded-full bg-tld" />
@@ -130,59 +131,62 @@ export function HomePage() {
                 {t.hero.badge}
               </p>
               <h1 className="text-[2.6rem] font-extrabold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
-                {t.hero.h1a} <span className="text-gradient" data-scramble={t.hero.h1b}>{t.hero.h1b}</span>
-                <br />
-                {t.hero.h1c} <span className="text-gradient">{t.hero.h1d}</span>
+                <span className="gsap-hero-line block">
+                  {t.hero.h1a} <span className="text-gradient" data-scramble={t.hero.h1b}>{t.hero.h1b}</span>
+                </span>
+                <span className="gsap-hero-line block">
+                  {t.hero.h1c} <span className="text-gradient">{t.hero.h1d}</span>
+                </span>
               </h1>
-              <p className="mt-7 max-w-xl text-lg leading-relaxed text-fgd/70">{t.hero.sub}</p>
+              <p className="gsap-hero-sub mt-7 max-w-xl text-lg leading-relaxed text-fgd/70">{t.hero.sub}</p>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row">
                 <TrackLink
                   href="#contacto"
                   event={LeadEvents.ctaClick}
                   eventProps={{ location: "hero" }}
-                  className={`${btnPrimary} glitch`}
+                  className={`gsap-hero-cta ${btnPrimary} glitch`}
                   data-text={t.hero.cta}
                 >
                   {t.hero.cta} <Icon.arrow className="size-4" />
                 </TrackLink>
-                <a href="#servicios" className={btnGhost}>
+                <a href="#servicios" className={`gsap-hero-cta ${btnGhost}`}>
                   {t.hero.secondary}
                 </a>
               </div>
               <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm text-fgd/55">
-                <li className="flex items-center gap-2">
+                <li className="gsap-hero-trust flex items-center gap-2">
                   <Icon.check className="size-4 text-tld" />
                   {t.hero.trust1}
                 </li>
-                <li className="flex items-center gap-2">
+                <li className="gsap-hero-trust flex items-center gap-2">
                   <Icon.check className="size-4 text-tld" />
                   {t.hero.trust2}
                 </li>
-                <li className="flex items-center gap-2">
+                <li className="gsap-hero-trust flex items-center gap-2">
                   <Icon.check className="size-4 text-tld" />
                   {t.hero.trust3}
                 </li>
               </ul>
-              <p className="mt-6 font-mono text-sm tracking-wide text-tld">
+              <p className="gsap-hero-slogan mt-6 font-mono text-sm tracking-wide text-tld">
                 {"// "}
                 <span data-scramble={siteConfig.slogan}>{siteConfig.slogan}</span>
                 <span className="ml-0.5 inline-block w-2 animate-pulse">▍</span>
               </p>
             </div>
 
-            <div className="relative mx-auto hidden aspect-square w-full max-w-md sm:block" aria-hidden>
+            <div className="gsap-hero-visual relative mx-auto hidden aspect-square w-full max-w-md sm:block" aria-hidden>
               <div className="absolute inset-0 animate-spin-slow rounded-full border border-dashed border-fgd/10" />
               <div className="absolute inset-12 rounded-full border border-p2/20" />
               <div className="absolute inset-20 rounded-full bg-black shadow-[0_0_80px_rgba(0,0,0,0.9),0_0_120px_rgba(92,31,109,0.3),inset_0_0_60px_rgba(0,0,0,0.8)]" />
               <div className="absolute inset-24 grid place-items-center rounded-full bg-gradient-radial from-black/95 to-black">
                 <Eye3D size={200} enableTracking />
               </div>
-              <div className="glass absolute left-0 top-16 animate-float rounded-2xl px-4 py-3 text-sm shadow-lg">
+              <div className="gsap-hero-float glass absolute left-0 top-16 rounded-2xl px-4 py-3 text-sm shadow-lg">
                 <span className="font-mono text-tld">agente.run()</span>
                 <br />
                 <span className="text-fgd/70">{t.hero.card1}</span>
               </div>
-              <div className="glass absolute bottom-12 right-0 animate-float rounded-2xl px-4 py-3 text-sm shadow-lg [animation-delay:-4s]">
+              <div className="gsap-hero-float glass absolute bottom-12 right-0 rounded-2xl px-4 py-3 text-sm shadow-lg">
                 <span className="font-mono text-p2">flujo.auto</span>
                 <br />
                 <span className="text-fgd/70">{t.hero.card2}</span>
@@ -194,7 +198,7 @@ export function HomePage() {
         {/* Blanco */}
         <section aria-labelledby="dolor-title" className="relative bg-bg py-24 sm:py-28">
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
-            <div className="max-w-2xl">
+            <div className="gsap-head max-w-2xl">
               <Eyebrow>{t.pain.eyebrow}</Eyebrow>
               <h2 id="dolor-title" className="text-3xl font-extrabold tracking-tight sm:text-5xl">
                 {t.pain.title} <span className="text-gradient-light">{t.pain.titleAccent}</span>
@@ -232,7 +236,7 @@ export function HomePage() {
         <section id="servicios" aria-labelledby="serv-title" className="relative overflow-hidden bg-dark py-24 text-fgd sm:py-28">
           <div className="grid-bg pointer-events-none absolute inset-0" aria-hidden />
           <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-            <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
+            <div className="gsap-head flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
               <div className="max-w-2xl">
                 <Eyebrow dark>{t.services.eyebrow}</Eyebrow>
                 <h2 id="serv-title" className="text-3xl font-extrabold tracking-tight sm:text-5xl">
@@ -247,7 +251,7 @@ export function HomePage() {
                 return (
                   <article
                     key={`svc-${i}`}
-                    className="card-light spot flex flex-col rounded-3xl p-8 text-ink transition hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(123,45,139,.16)]"
+                    className="reveal card-light spot flex flex-col rounded-3xl p-8 text-ink transition hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(123,45,139,.16)]"
                   >
                     <div className="flex items-center justify-between">
                       <span className="grid size-14 place-items-center rounded-2xl bg-gradient-to-br from-p to-tl text-white">
@@ -270,7 +274,7 @@ export function HomePage() {
               })}
             </div>
 
-            <article aria-labelledby="saas-title" className="relative mt-5 overflow-hidden rounded-3xl border border-white/10 bg-white p-8 text-ink sm:p-10">
+            <article aria-labelledby="saas-title" className="reveal relative mt-5 overflow-hidden rounded-3xl border border-white/10 bg-white p-8 text-ink sm:p-10">
               <div className="pointer-events-none absolute -right-20 -top-20 size-72 rounded-full bg-p/15 blur-3xl" aria-hidden />
               <div className="relative grid items-center gap-8 lg:grid-cols-2">
                 <div>
@@ -299,7 +303,7 @@ export function HomePage() {
         {/* Blanco */}
         <section aria-labelledby="nombre-title" className="bg-bg py-24 sm:py-28">
           <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 sm:px-8 lg:grid-cols-2">
-            <div>
+            <div className="gsap-head">
               <Eyebrow>{t.about.eyebrow}</Eyebrow>
               <h2 id="nombre-title" className="text-3xl font-extrabold tracking-tight sm:text-5xl">
                 {t.about.title} <span className="text-gradient-light">{t.about.titleAccent}</span>
@@ -327,7 +331,7 @@ export function HomePage() {
           <div className="scanline" aria-hidden />
           <div className="pointer-events-none absolute left-1/2 top-0 size-[40rem] -translate-x-1/2 rounded-full bg-p/25 blur-[140px]" aria-hidden />
           <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-            <div className="max-w-3xl">
+            <div className="gsap-head max-w-3xl">
               <Eyebrow dark>{t.why.eyebrow}</Eyebrow>
               <h2 id="dif-title" className="text-3xl font-extrabold tracking-tight sm:text-5xl">
                 {t.why.title} <span className="text-gradient">{t.why.titleAccent}</span>
@@ -363,7 +367,7 @@ export function HomePage() {
         {/* Blanco */}
         <section id="proceso" aria-labelledby="proc-title" className="bg-bg py-24 sm:py-28">
           <div className="mx-auto max-w-7xl px-5 sm:px-8">
-            <div className="mx-auto max-w-2xl text-center">
+            <div className="gsap-head mx-auto max-w-2xl text-center">
               <Eyebrow>{t.process.eyebrow}</Eyebrow>
               <h2 id="proc-title" className="text-3xl font-extrabold tracking-tight sm:text-5xl">
                 {t.process.title} <span className="text-gradient-light">{t.process.titleAccent}</span>
@@ -373,7 +377,7 @@ export function HomePage() {
               <li role="presentation" aria-hidden className="absolute left-[8%] right-[8%] top-8 hidden h-px bg-gradient-to-r from-p/0 via-p/40 to-tl/0 lg:block" />
               <li role="presentation" aria-hidden className="flow-track left-[8%] right-[8%] top-[31px] hidden h-[3px] lg:block" />
               {t.process.steps.map(([n, title, desc], i) => (
-                <li key={n} className="reveal relative text-center" style={{ "--i": i } as React.CSSProperties}>
+                <li key={n} className="gsap-step relative text-center" style={{ "--i": i } as React.CSSProperties}>
                   <span className="step-node relative mx-auto grid size-16 place-items-center rounded-2xl border border-p/20 bg-white font-mono text-lg font-medium text-p shadow-[0_10px_30px_rgba(123,45,139,.12)]">
                     {n}
                   </span>
@@ -388,7 +392,7 @@ export function HomePage() {
         {/* Morado */}
         <section aria-label={t.midCta.aria} className="relative overflow-hidden bg-dark py-16 text-fgd sm:py-20">
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-p/40 via-transparent to-tl/30" aria-hidden />
-          <div className="relative mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-5 sm:px-8 lg:flex-row lg:items-center">
+          <div className="gsap-mid-cta relative mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-5 sm:px-8 lg:flex-row lg:items-center">
             <div className="max-w-xl">
               <p className="font-mono text-xs uppercase tracking-[.2em] text-tld">{t.midCta.label}</p>
               <h2 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">{t.midCta.title}</h2>
@@ -403,7 +407,7 @@ export function HomePage() {
         {/* Blanco */}
         <section id="experiencia" aria-labelledby="exp-title" className="bg-bg py-24 sm:py-28">
           <div className="mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[.9fr_1.1fr] lg:items-center">
-            <div>
+            <div className="gsap-head">
               <Eyebrow>{t.experience.eyebrow}</Eyebrow>
               <h2 id="exp-title" className="text-3xl font-extrabold tracking-tight sm:text-5xl">
                 {t.experience.title} <span className="text-gradient-light">{t.experience.titleAccent}</span>
@@ -453,7 +457,7 @@ export function HomePage() {
         {/* Blanco (continúa banda clara con Experiencia) */}
         <section id="faq" aria-labelledby="faq-title" className="bg-bg py-24 sm:py-28">
           <div className="mx-auto max-w-3xl px-5 sm:px-8">
-            <div className="text-center">
+            <div className="gsap-head text-center">
               <Eyebrow>{t.faq.eyebrow}</Eyebrow>
               <h2 id="faq-title" className="text-3xl font-extrabold tracking-tight sm:text-5xl">
                 {t.faq.title}
@@ -461,7 +465,7 @@ export function HomePage() {
             </div>
             <div className="mt-12 space-y-3">
               {t.faq.items.map((f) => (
-                <details key={f.q} className="card-light group rounded-2xl px-6 py-4 open:pb-5">
+                <details key={f.q} className="reveal card-light group rounded-2xl px-6 py-4 open:pb-5">
                   <summary className="cursor-pointer list-none font-semibold text-ink marker:content-none [&::-webkit-details-marker]:hidden">
                     <span className="flex items-center justify-between gap-4">
                       {f.q}
@@ -487,7 +491,7 @@ export function HomePage() {
           <div className="pointer-events-none absolute -bottom-40 right-0 size-[36rem] rounded-full bg-tl/30 blur-[140px]" aria-hidden />
           <div className="pointer-events-none absolute -left-20 top-0 size-[30rem] rounded-full bg-p/30 blur-[140px]" aria-hidden />
           <div className="relative mx-auto grid max-w-7xl gap-12 px-5 sm:px-8 lg:grid-cols-[.9fr_1.1fr]">
-            <div>
+            <div className="gsap-head">
               <Eyebrow dark>{t.contact.eyebrow}</Eyebrow>
               <h2 id="cta-title" className="text-3xl font-extrabold tracking-tight sm:text-5xl">
                 {t.contact.title} <span className="text-gradient">{t.contact.titleAccent}</span>
@@ -496,7 +500,7 @@ export function HomePage() {
                 {t.contact.desc} <strong className="text-fgd">{t.contact.descStrong}</strong>.
               </p>
               <div className="mt-10">
-                <a href={`mailto:${siteConfig.email}`} className="glass flex items-center gap-4 rounded-2xl p-4 transition hover:border-tld/50">
+                <a href={`mailto:${siteConfig.email}`} className="reveal glass flex items-center gap-4 rounded-2xl p-4 transition hover:border-tld/50">
                   <span className="grid size-11 place-items-center rounded-xl bg-tl/30 text-fgd">
                     <Icon.mail className="size-5" />
                   </span>
@@ -507,7 +511,9 @@ export function HomePage() {
                 </a>
               </div>
             </div>
-            <ContactForm />
+            <div className="reveal">
+              <ContactForm />
+            </div>
           </div>
         </section>
       </main>
@@ -532,6 +538,6 @@ export function HomePage() {
           <p className="text-sm">{t.footer}</p>
         </div>
       </footer>
-    </>
+    </GsapMotion>
   );
 }
